@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if diary %}Edit Diary{% else %}Create Diary{% endif %}</title>
+
+    <link rel="stylesheet" href="{% static 'diary/diary.css' %}">
+
+    <style>
+        .form-card {
+            max-width: 650px;
+            margin: auto;
+            background: #020617;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .form-card h2 {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 15px;
+        }
+
+        .field textarea {
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-save:hover {
+            opacity: 0.9;
+        }
+
+        .back {
+            display: block;
+            margin-top: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>📝 {% if diary %}Edit Diary{% else %}Create Diary{% endif %}</h2>
+    <a href="{% url 'diary_home' %}">⬅ Back</a>
+</div>
+
+<div class="form-card">
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Title -->
+        <div class="field">
+            <label>📁 Diary Title *</label>
+            <input type="text" name="title"
+                   value="{{ diary.title|default_if_none:'' }}"
+                   placeholder="Enter diary title"
+                   required>
+        </div>
+
+        <!-- Content -->
+        <div class="field">
+            <label>✍️ Content *</label>
+            <textarea name="content" rows="6" required
+                placeholder="Write your thoughts...">{{ diary.content|default_if_none:'' }}</textarea>
+        </div>
+
+        <!-- Upload -->
+        {% if not diary %}
+        <div class="field">
+            <label>🖼️ Upload Images / Files</label>
+            <input type="file" name="files" multiple>
+        </div>
+        {% endif %}
+
+        <!-- Save -->
+        <button type="submit" class="btn-save">
+            💾 {% if diary %}Update Diary{% else %}Save Diary{% endif %}
+        </button>
+    </form>
+
+    <a class="back" href="{% url 'diary_home' %}">⬅ Back to Diary</a>
+</div>
+
+</body>
+</html>

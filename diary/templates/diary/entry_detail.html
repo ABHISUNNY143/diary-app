@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ entry.title }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        img.entry-img {
+            width: 250px;
+            cursor: pointer;
+            margin: 10px 0;
+            border-radius: 6px;
+            transition: transform 0.2s;
+        }
+
+        img.entry-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Fullscreen overlay */
+        #imgOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #imgOverlay img {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{{ entry.title }}</h1>
+<p>{{ entry.content }}</p>
+
+<hr>
+
+<h3>Images</h3>
+
+{% for img in entry.images.all %}
+    <img src="{{ img.image.url }}"
+         class="entry-img"
+         onclick="openImage('{{ img.image.url }}')">
+{% endfor %}
+
+<br><br>
+<a href="/">⬅ Back</a>
+
+<!-- Fullscreen Viewer -->
+<div id="imgOverlay" onclick="closeImage()">
+    <img id="fullImg">
+</div>
+
+<script>
+    function openImage(src) {
+        document.getElementById("fullImg").src = src;
+        document.getElementById("imgOverlay").style.display = "flex";
+    }
+
+    function closeImage() {
+        document.getElementById("imgOverlay").style.display = "none";
+    }
+
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") {
+            closeImage();
+        }
+    });
+</script>
+
+</body>
+</html>

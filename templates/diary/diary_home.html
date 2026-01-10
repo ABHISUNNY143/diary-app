@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Diary</title>
+
+    <!-- Diary Dark Theme CSS -->
+    <link rel="stylesheet" href="{% static 'diary/diary.css' %}">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <h2>📖 My Diary</h2>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<!-- Create Button -->
+<div style="margin: 20px 0;">
+    <a class="btn" href="{% url 'diary_create' %}">+ Create New Diary</a>
+</div>
+
+<hr>
+
+<!-- Diary List -->
+{% if diaries %}
+    {% for diary in diaries %}
+        <div class="card">
+            <h3>
+                <a href="{% url 'diary_detail' diary.id %}">
+                    {{ diary.title }}
+                </a>
+            </h3>
+
+            <p style="font-size: 13px; color: #9ca3af;">
+                {{ diary.created_at }}
+            </p>
+
+            <div style="margin-top: 10px;">
+                <a class="btn" href="{% url 'diary_edit' diary.id %}">Edit</a>
+                <a class="btn btn-danger"
+   href="{% url 'diary_delete' diary.id %}"
+   onclick="return confirm('Are you sure you want to delete this diary?');">Delete</a>
+
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No diary entries yet. Start by creating one.</p>
+{% endif %}
+
+</body>
+</html>

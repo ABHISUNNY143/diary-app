@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Entry</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { padding: 10px 15px; margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>⚠️ Delete Entry</h2>
+
+<p>Are you sure you want to delete:</p>
+<h3>"{{ entry.title }}"</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" style="background:red;color:white;">🗑 Yes, Delete</button>
+    <a href="{% url 'entry_detail' entry.id %}">❌ Cancel</a>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Personal Diary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fb;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .folder {
+            background: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+        }
+        .logout {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📘 My Personal Diary</h1>
+
+<div class="card">
+    <h3>✍️ Write Today’s Feelings</h3>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Title</label>
+        <input type="text" name="title" required>
+
+        <label>Content</label>
+        <textarea name="content"></textarea>
+
+        <label>Images</label>
+        <input type="file" name="images" multiple>
+
+        <br><br>
+        <button type="submit">➕ Save Entry</button>
+    </form>
+</div>
+
+<form method="GET">
+    <input type="text" name="search" placeholder="Search title...">
+    <button type="submit">🔍 Search</button>
+</form>
+
+<hr>
+
+<h2>📂 My Entries</h2>
+
+{% for entry in entries %}
+    <div class="folder">
+        📁 <a href="{% url 'entry_detail' entry.id %}">
+            <strong>{{ entry.title }}</strong>
+        </a>
+        <br>
+        <small>{{ entry.created_at|date:"M d, Y h:i A" }}</small>
+    </div>
+{% empty %}
+    <p>No entries yet.</p>
+{% endfor %}
+
+<br>
+
+<form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button class="logout">🚪 Logout</button>
+</form>
+
+</body>
+</html>

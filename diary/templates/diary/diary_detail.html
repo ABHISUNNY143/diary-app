@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ entry.title }}</title>
+</head>
+<body>
+
+<h1>{{ entry.title }}</h1>
+<p>{{ entry.content }}</p>
+
+<hr>
+
+<h3>Images</h3>
+{% for img in images %}
+    <img src="{{ img.image.url }}" width="400"><br><br>
+{% empty %}
+    <p>No images</p>
+{% endfor %}
+
+<br>
+<a href="/">⬅ Back</a>
+
+</body>
+</html>
