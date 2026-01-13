@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+<link rel="manifest" href="{% static 'pwa/manifest.json' %}">
+<meta name="theme-color" content="#0ea5e9">
+
+  <meta charset="UTF-8" />
+  <title>Welcome to Your Diary</title>
+
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
+  <style>
+    /* Calm, peaceful background */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(1200px 600px at 10% 10%, #0b3c49, transparent 60%),
+                  radial-gradient(1000px 500px at 90% 30%, #0a2a43, transparent 55%),
+                  linear-gradient(135deg, #020617, #0b1220);
+      color: #e5e7eb;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    .card {
+      max-width: 560px;
+      padding: 36px;
+      border-radius: 18px;
+      background: rgba(2, 6, 23, 0.75);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      text-align: center;
+      animation: fadeUp 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 30px;
+      letter-spacing: 0.3px;
+    }
+
+    p {
+      margin: 0 0 22px 0;
+      color: #9ca3af;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .soft {
+      font-style: italic;
+      color: #c7d2fe;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+      box-shadow: 0 12px 30px rgba(37,99,235,0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 36px rgba(37,99,235,0.45);
+      opacity: .95;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="greeting">Welcome to Your Diary</h1>
+
+    <p class="soft">Take a breath. This is your quiet place.</p>
+    <p>
+      A gentle space for thoughts, memories, and moments.<br />
+      Write freely. Reflect calmly. Return whenever you need.
+    </p>
+
+    <a class="btn" href="{% url 'login' %}">Enter my diary →</a>
+
+    <div class="footer">
+      Your words. Your pace. Your space.
+    </div>
+  </div>
+  <script>
+  (function () {
+    const hour = new Date().getHours();
+    let text = "Welcome to Your Diary";
+
+    if (hour < 12) text = "Good morning";
+    else if (hour < 18) text = "Good afternoon";
+    else text = "Good evening";
+
+    document.getElementById("greeting").textContent = text;
+  })();
+</script>
+
+
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register("{% static 'pwa/sw.js' %}")
+        .then(reg => {
+            console.log("✅ Service Worker registered:", reg.scope);
+        })
+        .catch(err => {
+            console.error("❌ Service Worker failed:", err);
+        });
+    });
+}
+</script>
+
+</body>
+</html>

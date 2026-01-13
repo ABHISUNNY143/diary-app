@@ -2,33 +2,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'diary/auth.css' %}">
+
+  <!-- mobile app -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PWA -->
+<link rel="manifest" href="{% static 'pwa/manifest.json' %}">
+<meta name="theme-color" content="#0ea5e9">
+
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 </head>
 <body>
 
-<div class="auth-box">
-    <h2>Welcome Back</h2>
+<div class="auth-wrapper">
 
-    {% if messages %}
-        {% for message in messages %}
-            <p class="msg">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+  <div class="auth-card">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Your private space awaits</p>
 
     <form method="post">
-        {% csrf_token %}
+      {% csrf_token %}
+
+      <div class="field">
+        <span class="icon">👤</span>
         <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+      </div>
+
+      <div class="field">
+        <span class="icon">🔒</span>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+        <span class="toggle" onclick="togglePassword()">👁️</span>
+      </div>
+
+      <button type="submit">Login</button>
     </form>
 
-    <div class="links">
-        <a href="{% url 'register' %}">Create account</a> |
-        <a href="{% url 'forgot_password' %}">Forgot password?</a>
+    <div class="auth-links">
+      <a href="{% url 'register' %}">Create account</a>
+      <span>•</span>
+      <a href="{% url 'forgot_password' %}">Forgot password?</a>
+
     </div>
+  </div>
+
 </div>
+
+<script>
+  function togglePassword() {
+    const pwd = document.getElementById("password");
+    pwd.type = pwd.type === "password" ? "text" : "password";
+  }
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register("{% static 'pwa/sw.js' %}")
+      .then(reg => console.log("Service Worker registered", reg.scope))
+      .catch(err => console.error("Service Worker failed", err));
+  });
+}
+</script>
 
 </body>
 </html>

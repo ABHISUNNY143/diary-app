@@ -1,0 +1,198 @@
+/* ===============================
+   AUTH PAGE – FINAL DESIGN
+   =============================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+
+  background:
+    radial-gradient(circle at 15% 10%, #1e3a8a55, transparent 55%),
+    radial-gradient(circle at 85% 70%, #0ea5e955, transparent 55%),
+    linear-gradient(135deg, #020617, #020617);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+}
+
+/* Center wrapper */
+.auth-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Card */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 22px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(2, 6, 23, 0.98)
+  );
+
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  animation: fadeUp 0.9s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title */
+.auth-card h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 28px;
+}
+
+/* Fields */
+.field input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+
+  border-radius: 14px;
+  border: 1px solid #1e293b;
+  background: #020617;
+
+  color: #f1f5f9;
+  font-size: 15px;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: white;
+  font-size: 16px;
+
+  box-shadow: 0 14px 40px rgba(37, 99, 235, 0.55);
+  transition: transform 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Links */
+.auth-links {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-links a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.auth-links span {
+  margin: 0 6px;
+  color: #64748b;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 30px;
+  }
+}
+/* ===============================
+   INPUT ICONS & TOGGLE
+   =============================== */
+
+.field {
+  position: relative;
+}
+
+.field .icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+.field .toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.field input {
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+
+/* ===============================
+   SOFT BACKGROUND MOTION
+   =============================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(56,189,248,0.12), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(37,99,235,0.12), transparent 40%);
+
+  animation: slowFloat 22s ease-in-out infinite alternate;
+}
+
+@keyframes slowFloat {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-6%, -4%);
+  }
+}

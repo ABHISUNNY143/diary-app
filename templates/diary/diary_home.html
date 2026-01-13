@@ -2,53 +2,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<!-- mobile -->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA -->
+<link rel="manifest" href="{% static 'pwa/manifest.json' %}">
+<meta name="theme-color" content="#0ea5e9">
+
     <meta charset="UTF-8">
     <title>My Diary</title>
 
     <!-- Diary Dark Theme CSS -->
-    <link rel="stylesheet" href="{% static 'diary/diary.css' %}">
+    <link rel="stylesheet" href="{% static 'css/diary.css' %}">
 </head>
+
 <body>
 
-<!-- Header -->
-<div class="header">
-    <h2>📖 My Diary</h2>
+<!-- ================= HEADER ================= -->
+    <div class="header">
+    <div class="brand">
+        <h1>📖 My Diary</h1>
+        <span>Your quiet place to write and reflect</span>
+    </div>
+
     <a href="{% url 'logout' %}">Logout</a>
 </div>
 
-<!-- Create Button -->
-<div style="margin: 20px 0;">
-    <a class="btn" href="{% url 'diary_create' %}">+ Create New Diary</a>
-</div>
 
-<hr>
+<!-- ================= MAIN CONTAINER ================= -->
+<div class="container">
 
-<!-- Diary List -->
-{% if diaries %}
-    {% for diary in diaries %}
-        <div class="card">
-            <h3>
-                <a href="{% url 'diary_detail' diary.id %}">
+    <!-- Create New Diary -->
+    <a class="create-btn" href="{% url 'diary_create' %}">
+        ＋ Create New Diary
+    </a>
+
+    <!-- ================= DIARY LIST ================= -->
+    {% if diaries %}
+        {% for diary in diaries %}
+            <div class="diary-card">
+
+                <a href="{% url 'diary_detail' diary.id %}" class="diary-title">
                     {{ diary.title }}
                 </a>
-            </h3>
 
-            <p style="font-size: 13px; color: #9ca3af;">
-                {{ diary.created_at }}
-            </p>
+                <div class="diary-date">
+                    {{ diary.created_at|date:"M d, Y • h:i A" }}
+                </div>
 
-            <div style="margin-top: 10px;">
-                <a class="btn" href="{% url 'diary_edit' diary.id %}">Edit</a>
-                <a class="btn btn-danger"
-   href="{% url 'diary_delete' diary.id %}"
-   onclick="return confirm('Are you sure you want to delete this diary?');">Delete</a>
+                <div class="actions">
+                    <a href="{% url 'diary_edit' diary.id %}">Edit</a>
+
+                    <a href="{% url 'diary_delete' diary.id %}"
+                       class="delete"
+                       onclick="return confirm('Are you sure you want to delete this diary?');">
+                       Delete
+                    </a>
+                </div>
 
             </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">
+            No diary entries yet.<br>
+            Start writing your first memory ✨
         </div>
-    {% endfor %}
-{% else %}
-    <p>No diary entries yet. Start by creating one.</p>
-{% endif %}
+    {% endif %}
+
+</div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register("{% static 'pwa/sw.js' %}")
+      .then(reg => console.log("Service Worker registered", reg.scope))
+      .catch(err => console.error("Service Worker failed", err));
+  });
+}
+</script>
 
 </body>
 </html>

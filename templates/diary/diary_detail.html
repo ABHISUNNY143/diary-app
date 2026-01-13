@@ -1,119 +1,65 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+
+    <!-- mobile -->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{{ diary.title }}</title>
-
-    <!-- Diary Dark Theme -->
-    <link rel="stylesheet" href="{% static 'diary/diary.css' %}">
-
-    <style>
-        .content-box {
-            background: #020617;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .images {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .images img {
-            width: 140px;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
-        }
-
-        .images img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Fullscreen overlay */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .overlay img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 12px;
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 34px;
-            color: #ffffff;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .close:hover {
-            color: #38bdf8;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/diary.css' %}">
 </head>
 <body>
 
-<!-- Header -->
 <div class="header">
-    <h2>{{ diary.title }}</h2>
-    <a href="{% url 'diary_home' %}">⬅ Back</a>
+    <h2>📂 {{ diary.title }}</h2>
+    <a href="{% url 'diary_home' %}">← Back</a>
 </div>
 
-<!-- Diary Content -->
-<div class="content-box">
-    <p>{{ diary.content }}</p>
-</div>
+<div class="container">
 
-<!-- Images Section -->
-<h3>📷 Images</h3>
+    <div class="diary-card">
 
-{% if diary.files.all %}
-    <div class="images">
-        {% for file in diary.files.all %}
-            <img src="{{ file.file.url }}" onclick="openImg('{{ file.file.url }}')">
-        {% endfor %}
+        <div class="diary-date">
+            {{ diary.created_at|date:"M d, Y • h:i A" }}
+        </div>
+
+        <p class="diary-content">
+            {{ diary.content|linebreaks }}
+        </p>
+
+        {% if diary.files %}
+            <div class="files">
+                <h4>📁 Attachments</h4>
+                {% for file in diary.files.all %}
+                    <img src="{{ file.file.url }}" onclick="openImage(this.src)">
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{% url 'diary_edit' diary.id %}">Edit</a>
+            <a href="{% url 'diary_delete' diary.id %}" class="delete">Delete</a>
+        </div>
+
     </div>
-{% else %}
-    <p>No images uploaded.</p>
-{% endif %}
 
-<!-- Fullscreen Overlay -->
-<div class="overlay" id="overlay">
-    <span class="close" onclick="closeImg()">✖</span>
-    <img id="fullImg">
 </div>
 
-<!-- Script -->
-<script>
-    function openImg(src) {
-        document.getElementById("overlay").style.display = "flex";
-        document.getElementById("fullImg").src = src;
-    }
+<!-- IMAGE OVERLAY -->
+<div class="overlay" onclick="closeImage()">
+    <span class="close">×</span>
+    <img id="overlayImg">
+</div>
 
-    function closeImg() {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("fullImg").src = "";
-    }
+<script>
+function openImage(src) {
+    document.getElementById("overlayImg").src = src;
+    document.querySelector(".overlay").style.display = "flex";
+}
+function closeImage() {
+    document.querySelector(".overlay").style.display = "none";
+}
 </script>
 
 </body>

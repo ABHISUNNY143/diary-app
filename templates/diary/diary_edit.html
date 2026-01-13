@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Diary</title>
+    <link rel="stylesheet" href="{% static 'css/diary.css' %}">
+</head>
+<body>
+
+<div class="header">
+    <h2>✏️ Edit Diary</h2>
+    <a href="{% url 'diary_home' %}">← Back</a>
+</div>
+
+<div class="page-wrapper">
+
+    <div class="form-card">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>📁 Diary Title *</label>
+            <input type="text" name="title" value="{{ diary.title }}" required>
+
+            <label>✍️ Content *</label>
+            <textarea name="content" rows="6" required>{{ diary.content }}</textarea>
+
+            <button type="submit" class="btn-save">💾 Update Diary</button>
+        </form>
+
+        <a href="{% url 'diary_home' %}" class="back-link">← Back to Diary</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

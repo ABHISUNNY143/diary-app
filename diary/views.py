@@ -54,16 +54,13 @@ def register_view(request):
     return render(request, 'diary/register.html')
 
 
-def forgot_password_view(request):
-    if request.method == "POST":
-               return redirect('login')
-
-    return render(request, 'diary/forgot_password.html')
-
 
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+def welcome_view(request):
+    return render(request, 'diary/welcome.html')
 
 
 # ================= DIARY =================

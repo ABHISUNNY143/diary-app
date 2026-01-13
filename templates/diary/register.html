@@ -1,33 +1,61 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register</title>
-    <link rel="stylesheet" href="{% static 'diary/auth.css' %}">
+
+    <!-- mobile  -->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <title>Create Account • My Diary</title>
+
+    <link rel="stylesheet" href="{% static 'css/diary.css' %}">
 </head>
 <body>
 
-<div class="auth-box">
-    <h2>Create Account</h2>
+<div class="page-wrapper">
 
-    {% if messages %}
-        {% for message in messages %}
-            <p class="msg">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+    <div class="form-card" style="max-width: 420px; width: 100%;">
 
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password1" placeholder="Password" required>
-        <input type="password" name="password2" placeholder="Confirm Password" required>
-        <button type="submit">Register</button>
-    </form>
+        <h2 style="text-align:center; margin-bottom: 8px;">✨ Create Account</h2>
+        <p style="text-align:center; color:#9ca3af; font-size:14px; margin-bottom:20px;">
+            Your private space starts here
+        </p>
 
-    <div class="links">
-        <a href="{% url 'login' %}">Back to Login</a>
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:#22c55e; font-size:14px; text-align:center;">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" required>
+
+            <button class="btn-save" type="submit">
+                🚀 Create Account
+            </button>
+        </form>
+
+        <a class="back-link" href="{% url 'login' %}">
+            ← Back to Login
+        </a>
+
     </div>
+
 </div>
 
 </body>

@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --------------------------------------------------
 SECRET_KEY = 'django-insecure-change-this-key-later'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -29,7 +29,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'diary',   # 👈 add this
+
+    'cloudinary',
+    'cloudinary_storage',
 ]
+
 
 
 # --------------------------------------------------
@@ -45,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # --------------------------------------------------
 # URLS
@@ -126,8 +132,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # --------------------------------------------------
 # MEDIA FILES (VERY IMPORTANT)
 # --------------------------------------------------
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+    # MEDIA_URL = '/media/'
+    # MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # --------------------------------------------------
@@ -141,3 +147,23 @@ LOGOUT_REDIRECT_URL = 'login'
 # DEFAULT PRIMARY KEY
 # --------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# cloudinary cong
+
+import os
+import cloudinary
+
+cloudinary.config(
+    cloud_name=os.environ.get("dusmfpbnm"),
+    api_key=os.environ.get("314521425281819"),
+    api_secret=os.environ.get("1v19f8Piz6xQzXPictiDdl-L4ps"),
+)
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# newly added for password
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'My Diary <noreply@mydiary.com>'
