@@ -229,6 +229,14 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Email Configuration - SendGrid
 
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
+# SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+
+# DEFAULT_FROM_EMAIL = "abhinavardhan@gmail.com"
+
+# SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
