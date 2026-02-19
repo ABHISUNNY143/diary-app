@@ -152,15 +152,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # cloudinary cong
 
 
-import cloudinary
 
 import os
+import cloudinary
+
+
 
 cloudinary.config(
-    cloud_name=os.environ.get("dusmfpbnm"),
-    api_key=os.environ.get("998718889698134"),
-    api_secret=os.environ.get("-jvwW74QXf2Cwx0wAwL_GmcP7Tw"),
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
 )
+
+# import cloudinary
+
+# import os
+
+# cloudinary.config(
+#     cloud_name=os.environ.get("dusmfpbnm"),
+#     api_key=os.environ.get("998718889698134"),
+#     api_secret=os.environ.get("-jvwW74QXf2Cwx0wAwL_GmcP7Tw"),
+# )
 
 
 # cloudinary.config(
