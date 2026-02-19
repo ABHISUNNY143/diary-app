@@ -201,11 +201,14 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # newly added for password
 
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+# SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
-DEFAULT_FROM_EMAIL = "abhinavardhan@gmail.com"
+# DEFAULT_FROM_EMAIL = "abhinavardhan@gmail.com"
+
+# print("SENDGRID KEY:", os.environ.get("SENDGRID_API_KEY"))
+
 
 #old gmail config
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -223,3 +226,13 @@ DEFAULT_FROM_EMAIL = "abhinavardhan@gmail.com"
 #old email section
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # DEFAULT_FROM_EMAIL = 'My Diary <noreply@mydiary.com>'
+
+# Email Configuration - SendGrid
+
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+
+DEFAULT_FROM_EMAIL = "abhinavardhan@gmail.com"
+
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
