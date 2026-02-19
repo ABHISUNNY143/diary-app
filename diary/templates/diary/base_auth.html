@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>{% block title %}Auth{% endblock %}</title>
+    {% load static %}
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#2563eb">
+
     <style>
         body {
             font-family: Arial;
