@@ -9,12 +9,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --------------------------------------------------
 # SECURITY
+
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+
+
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+ALLOWED_HOSTS = ['.onrender.com']
+
+# old debug section
 # --------------------------------------------------
-SECRET_KEY = 'django-insecure-change-this-key-later'
+# SECRET_KEY = 'django-insecure-change-this-key-later'
 
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 
 # --------------------------------------------------
