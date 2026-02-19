@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --------------------------------------------------
 SECRET_KEY = 'django-insecure-change-this-key-later'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -151,14 +151,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # cloudinary cong
 
-import os
+
 import cloudinary
+
+import os
 
 cloudinary.config(
     cloud_name=os.environ.get("dusmfpbnm"),
-    api_key=os.environ.get("314521425281819"),
-    api_secret=os.environ.get("1v19f8Piz6xQzXPictiDdl-L4ps"),
+    api_key=os.environ.get("998718889698134"),
+    api_secret=os.environ.get("-jvwW74QXf2Cwx0wAwL_GmcP7Tw"),
 )
+
+
+# cloudinary.config(
+#     cloud_name="",
+#     api_key="",
+#     api_secret="",
+# )
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
