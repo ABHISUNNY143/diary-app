@@ -4,8 +4,7 @@
     <title>{% block title %}Auth{% endblock %}</title>
     {% load static %}
     <link rel="manifest" href="{% static 'manifest.json' %}">
-    <meta name="theme-color" content="#2563eb">
-
+    <meta name="theme-color" content="#0f172a">
     <style>
         body {
             font-family: Arial;
@@ -59,5 +58,14 @@
 <div class="card">
     {% block content %}{% endblock %}
 </div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register("{% static 'serviceworker.js' %}")
+    .then(function() {
+      console.log("Service Worker Registered");
+    });
+}
+</script>
 </body>
 </html>
